@@ -1,0 +1,91 @@
+/* Estilos de la vista de inicio de sesión (SGM - client-desktop). */
+
+.login-root {
+    -fx-font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+    -fx-background-color: linear-gradient(to bottom right, #1f3a5f, #2e5c8a 55%, #3f7cb8);
+}
+
+.login-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 18.0;
+    -fx-border-radius: 18.0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 28, 0.0, 0, 10);
+}
+
+.login-title {
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f3a5f;
+}
+
+.login-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7a90;
+}
+
+.login-field {
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 10.0;
+    -fx-border-color: #d7e0ea;
+    -fx-border-radius: 10.0;
+    -fx-border-width: 1.0;
+    -fx-padding: 10.0 14.0;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1f3a5f;
+    -fx-prompt-text-fill: #9aa7b8;
+}
+
+/* Realce sutil al enfocar los campos. */
+.login-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2e5c8a;
+    -fx-border-width: 1.6;
+    -fx-effect: dropshadow(gaussian, rgba(46, 92, 138, 0.35), 10, 0.0, 0, 0);
+}
+
+.login-button {
+    -fx-background-color: linear-gradient(to right, #2e5c8a, #3f7cb8);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10.0;
+    -fx-padding: 11.0 18.0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(46, 92, 138, 0.35), 10, 0.0, 0, 3);
+}
+
+.login-button:hover {
+    -fx-background-color: linear-gradient(to right, #244a72, #3569a0);
+}
+
+.login-button:pressed {
+    -fx-background-color: linear-gradient(to right, #1f3a5f, #2e5c8a);
+    -fx-effect: dropshadow(gaussian, rgba(46, 92, 138, 0.20), 6, 0.0, 0, 1);
+}
+
+.login-button:disabled {
+    -fx-opacity: 0.6;
+}
+
+.login-progress {
+    -fx-progress-color: #2e5c8a;
+}
+
+.login-message {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7a90;
+}
+
+.login-message.info {
+    -fx-text-fill: #4a6079;
+}
+
+.login-message.error {
+    -fx-text-fill: #c0392b;
+    -fx-font-weight: bold;
+}
+
+.login-message.success {
+    -fx-text-fill: #1e8449;
+    -fx-font-weight: bold;
+}

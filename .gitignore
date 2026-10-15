@@ -1,0 +1,39 @@
+# Maven
+target/
+*.class
+*.jar
+
+# Maven Wrapper (mvnw): se versiona para builds reproducibles
+.mvn/*
+!.mvn/wrapper/
+.mvn/wrapper/*
+!.mvn/wrapper/maven-wrapper.properties
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Secrets locales (nunca subir)
+.env
+*.pem
+*.key
+application-local.properties
+
+# Gluon / native
+client-mobile/android/
+client-mobile/ios/
+client-mobile/build/
+gluonfx/

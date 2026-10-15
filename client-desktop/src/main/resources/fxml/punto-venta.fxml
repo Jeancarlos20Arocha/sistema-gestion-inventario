@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.sgm.desktop.controller.PosController"
+            stylesheets="@../css/punto-venta.css"
+            prefWidth="1024.0" prefHeight="700.0"
+            styleClass="root-pane">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="header">
+            <padding>
+                <Insets top="16.0" right="24.0" bottom="16.0" left="24.0"/>
+            </padding>
+            <children>
+                <VBox spacing="2.0">
+                    <children>
+                        <Label text="SGM" styleClass="app-title"/>
+                        <Label text="Punto de Venta / Caja" styleClass="app-subtitle"/>
+                    </children>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <VBox alignment="CENTER_RIGHT" spacing="2.0">
+                    <children>
+                        <Label fx:id="bienvenidaLabel" text="Bienvenido" styleClass="welcome"/>
+                        <Label fx:id="usuarioLabel" styleClass="user-info"/>
+                    </children>
+                </VBox>
+                <Button fx:id="cerrarSesionButton" onAction="#onCerrarSesion" text="Cerrar sesión" styleClass="logout-button"/>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <HBox spacing="16.0" styleClass="pos-body">
+            <padding>
+                <Insets top="16.0" right="16.0" bottom="16.0" left="16.0"/>
+            </padding>
+            <children>
+                <VBox HBox.hgrow="ALWAYS" spacing="12.0">
+                    <children>
+                        <VBox spacing="8.0" styleClass="search-panel">
+                            <children>
+                                <Label text="Escaneo / búsqueda rápida de código de barras" styleClass="section-subtitle"/>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <TextField fx:id="barcodeField" promptText="Código de barras" HBox.hgrow="ALWAYS" styleClass="pos-field"/>
+                                        <Label text="Cant." styleClass="field-label"/>
+                                        <TextField fx:id="cantidadField" prefWidth="70.0" text="1" styleClass="pos-field"/>
+                                        <Button fx:id="agregarButton" onAction="#onAgregar" text="Agregar" styleClass="primary-button"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label text="Detalle de la venta actual" styleClass="section-title"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button fx:id="quitarButton" onAction="#onQuitar" text="Quitar seleccionado" styleClass="ghost-button"/>
+                            </children>
+                        </HBox>
+
+                        <TableView fx:id="carritoTable" VBox.vgrow="ALWAYS" styleClass="data-table"/>
+                    </children>
+                </VBox>
+
+                <VBox prefWidth="320.0" spacing="12.0" styleClass="payment-panel">
+                    <padding>
+                        <Insets top="18.0" right="18.0" bottom="18.0" left="18.0"/>
+                    </padding>
+                    <children>
+                        <Label text="Resumen de cobro" styleClass="panel-title"/>
+                        <Separator/>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label text="Total" styleClass="summary-label"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="totalLabel" text="0.00" styleClass="summary-total"/>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label text="Artículos" styleClass="summary-label"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="articulosLabel" text="0" styleClass="summary-value"/>
+                            </children>
+                        </HBox>
+                        <Separator/>
+                        <Label text="Efectivo recibido" styleClass="section-subtitle"/>
+                        <TextField fx:id="efectivoField" promptText="0.00" styleClass="pos-field"/>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label text="Cambio" styleClass="summary-label"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="cambioLabel" text="0.00" styleClass="summary-change"/>
+                            </children>
+                        </HBox>
+                        <Region VBox.vgrow="ALWAYS"/>
+                        <Button fx:id="procesarButton" maxWidth="1.7976931348623157E308" onAction="#onProcesar"
+                                text="Procesar venta" styleClass="proceed-button"/>
+                        <Label fx:id="mensajeLabel" minHeight="20.0" textAlignment="CENTER" wrapText="true"
+                               styleClass="pos-message"/>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="footer">
+            <padding>
+                <Insets top="10.0" right="24.0" bottom="10.0" left="24.0"/>
+            </padding>
+            <children>
+                <Label fx:id="estadoLabel" styleClass="estado" text="Listo"/>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

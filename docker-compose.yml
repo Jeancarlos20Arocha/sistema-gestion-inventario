@@ -1,0 +1,23 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: sgm-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: sgm_root_2026
+      MYSQL_DATABASE: sgm_db
+      MYSQL_USER: sgm
+      MYSQL_PASSWORD: sgm_pass_2026
+      TZ: America/La_Paz
+    ports:
+      - "3306:3306"
+    volumes:
+      - sgm_mysql_data:/var/lib/mysql
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password
+
+volumes:
+  sgm_mysql_data:

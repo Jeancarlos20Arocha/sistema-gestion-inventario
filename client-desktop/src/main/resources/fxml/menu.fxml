@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.sgm.desktop.controller.MenuController"
+            stylesheets="@../css/menu.css"
+            prefWidth="1024.0" prefHeight="700.0"
+            styleClass="root-pane">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="header">
+            <padding>
+                <Insets top="18.0" right="24.0" bottom="18.0" left="24.0"/>
+            </padding>
+            <children>
+                <VBox spacing="2.0">
+                    <children>
+                        <Label text="SGM" styleClass="app-title"/>
+                        <Label text="Sistema de Gestión de Inventario" styleClass="app-subtitle"/>
+                    </children>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <VBox alignment="CENTER_RIGHT" spacing="2.0">
+                    <children>
+                        <Label fx:id="bienvenidaLabel" text="Bienvenido" styleClass="welcome"/>
+                        <Label fx:id="usuarioLabel" styleClass="user-info"/>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane fx:id="contenidoPane" styleClass="content">
+            <children>
+                <VBox alignment="TOP_CENTER" spacing="20.0">
+                    <children>
+                        <Label text="Panel principal" styleClass="section-title"/>
+                        <Label text="Seleccione el módulo que desea administrar" styleClass="section-subtitle"/>
+                        <TilePane alignment="TOP_CENTER" hgap="18.0" vgap="18.0" prefColumns="2">
+                            <children>
+                                <Button onAction="#onGestionProductos" styleClass="card" prefWidth="320.0" prefHeight="120.0">
+                                    <graphic>
+                                        <VBox alignment="CENTER_LEFT" spacing="6.0">
+                                            <children>
+                                                <Label text="Productos" styleClass="card-title"/>
+                                                <Label text="Administrar el catálogo de productos del inventario" styleClass="card-desc" wrapText="true"/>
+                                            </children>
+                                        </VBox>
+                                    </graphic>
+                                </Button>
+                                <Button onAction="#onGestionStock" styleClass="card" prefWidth="320.0" prefHeight="120.0">
+                                    <graphic>
+                                        <VBox alignment="CENTER_LEFT" spacing="6.0">
+                                            <children>
+                                                <Label text="Stock" styleClass="card-title"/>
+                                                <Label text="Consultar existencias, entradas y salidas de mercancía" styleClass="card-desc" wrapText="true"/>
+                                            </children>
+                                        </VBox>
+                                    </graphic>
+                                </Button>
+                                <Button onAction="#onGestionCategorias" styleClass="card" prefWidth="320.0" prefHeight="120.0">
+                                    <graphic>
+                                        <VBox alignment="CENTER_LEFT" spacing="6.0">
+                                            <children>
+                                                <Label text="Categorías" styleClass="card-title"/>
+                                                <Label text="Organizar los productos por categorías" styleClass="card-desc" wrapText="true"/>
+                                            </children>
+                                        </VBox>
+                                    </graphic>
+                                </Button>
+                                <Button onAction="#onPuntoDeVenta" styleClass="card" prefWidth="320.0" prefHeight="120.0">
+                                    <graphic>
+                                        <VBox alignment="CENTER_LEFT" spacing="6.0">
+                                            <children>
+                                                <Label text="Punto de Venta" styleClass="card-title"/>
+                                                <Label text="Registrar ventas y movimientos de caja" styleClass="card-desc" wrapText="true"/>
+                                            </children>
+                                        </VBox>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </TilePane>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="footer">
+            <padding>
+                <Insets top="12.0" right="24.0" bottom="12.0" left="24.0"/>
+            </padding>
+            <children>
+                <Label fx:id="estadoLabel" styleClass="estado"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="cerrarSesionButton" onAction="#onCerrarSesion" text="Cerrar sesión" styleClass="logout-button"/>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,107 @@
+/* Estilos de la vista del menú principal (SGM - client-desktop). */
+
+.root-pane {
+    -fx-font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+    -fx-background-color: #f4f6f9;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #1f3a5f, #2e5c8a);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.20), 8, 0.0, 0, 2);
+}
+
+.app-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.app-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #c9d8ea;
+}
+
+.welcome {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.user-info {
+    -fx-font-size: 12px;
+    -fx-text-fill: #c9d8ea;
+}
+
+.content {
+    -fx-background-color: #f4f6f9;
+    -fx-padding: 28.0;
+}
+
+.section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f3a5f;
+}
+
+.section-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6b7a90;
+}
+
+.card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 14.0;
+    -fx-border-radius: 14.0;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1.0;
+    -fx-padding: 18.0;
+    -fx-cursor: hand;
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, rgba(31, 58, 95, 0.08), 12, 0.0, 0, 4);
+}
+
+.card:hover {
+    -fx-border-color: #2e5c8a;
+    -fx-translate-y: -2.0;
+    -fx-effect: dropshadow(gaussian, rgba(31, 58, 95, 0.22), 18, 0.0, 0, 6);
+}
+
+.card:pressed {
+    -fx-translate-y: 0.0;
+    -fx-effect: dropshadow(gaussian, rgba(31, 58, 95, 0.12), 8, 0.0, 0, 2);
+}
+
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f3a5f;
+}
+
+.card-desc {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7a90;
+}
+
+.footer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1.0 0.0 0.0 0.0;
+}
+
+.estado {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7a90;
+}
+
+.logout-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8.0;
+    -fx-padding: 8.0 18.0;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: #c0392b;
+}

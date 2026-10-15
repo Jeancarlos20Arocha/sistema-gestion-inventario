@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.sgm.desktop.controller.AdminDashboardController"
+            stylesheets="@../css/admin-dashboard.css"
+            prefWidth="1024.0" prefHeight="700.0"
+            styleClass="root-pane">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="header">
+            <padding>
+                <Insets top="18.0" right="24.0" bottom="18.0" left="24.0"/>
+            </padding>
+            <children>
+                <VBox spacing="2.0">
+                    <children>
+                        <Label text="SGM" styleClass="app-title"/>
+                        <Label text="Panel de Administración" styleClass="app-subtitle"/>
+                    </children>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <VBox alignment="CENTER_RIGHT" spacing="2.0">
+                    <children>
+                        <Label fx:id="bienvenidaLabel" text="Bienvenido" styleClass="welcome"/>
+                        <Label fx:id="usuarioLabel" styleClass="user-info"/>
+                    </children>
+                </VBox>
+                <Button fx:id="cerrarSesionButton" onAction="#onCerrarSesion" text="Cerrar sesión" styleClass="logout-button"/>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <TabPane fx:id="tabs" tabClosingPolicy="UNAVAILABLE" styleClass="dash-tabs">
+            <tabs>
+                <Tab text="Inventario">
+                    <content>
+                        <VBox spacing="10.0" styleClass="tab-content">
+                            <padding>
+                                <Insets top="16.0" right="16.0" bottom="16.0" left="16.0"/>
+                            </padding>
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <Label text="Ítems del inventario: stock, costos y precios" styleClass="section-subtitle"/>
+                                        <Region HBox.hgrow="ALWAYS"/>
+                                        <Button onAction="#onRefrescarInventario" text="Refrescar" styleClass="action-button"/>
+                                    </children>
+                                </HBox>
+                                <TableView fx:id="itemsTable" VBox.vgrow="ALWAYS" styleClass="data-table"/>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Lotes">
+                    <content>
+                        <VBox spacing="10.0" styleClass="tab-content">
+                            <padding>
+                                <Insets top="16.0" right="16.0" bottom="16.0" left="16.0"/>
+                            </padding>
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <Label text="Lotes registrados y control de existencias por lote" styleClass="section-subtitle"/>
+                                        <Region HBox.hgrow="ALWAYS"/>
+                                        <Button onAction="#onRefrescarLotes" text="Refrescar" styleClass="action-button"/>
+                                    </children>
+                                </HBox>
+                                <TableView fx:id="batchesTable" VBox.vgrow="ALWAYS" styleClass="data-table"/>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Movimientos de stock">
+                    <content>
+                        <VBox spacing="10.0" styleClass="tab-content">
+                            <padding>
+                                <Insets top="16.0" right="16.0" bottom="16.0" left="16.0"/>
+                            </padding>
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <Label text="Entradas, salidas y ajustes; incluye la terminal (machine_id) que los originó" styleClass="section-subtitle"/>
+                                        <Region HBox.hgrow="ALWAYS"/>
+                                        <Button onAction="#onRefrescarMovimientos" text="Refrescar" styleClass="action-button"/>
+                                    </children>
+                                </HBox>
+                                <TableView fx:id="movementsTable" VBox.vgrow="ALWAYS" styleClass="data-table"/>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Usuarios y auditoría">
+                    <content>
+                        <VBox spacing="10.0" styleClass="tab-content">
+                            <padding>
+                                <Insets top="16.0" right="16.0" bottom="16.0" left="16.0"/>
+                            </padding>
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <Label text="Usuarios, estado de bloqueo y auditoría por terminal" styleClass="section-subtitle"/>
+                                        <Region HBox.hgrow="ALWAYS"/>
+                                        <Button onAction="#onRefrescarUsuarios" text="Refrescar" styleClass="action-button"/>
+                                    </children>
+                                </HBox>
+                                <TableView fx:id="usersTable" VBox.vgrow="ALWAYS" styleClass="data-table"/>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="footer">
+            <padding>
+                <Insets top="12.0" right="24.0" bottom="12.0" left="24.0"/>
+            </padding>
+            <children>
+                <Label fx:id="estadoLabel" styleClass="estado" text="Listo"/>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
