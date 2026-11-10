@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Service
 public class StockService {
@@ -38,7 +39,7 @@ public class StockService {
             throw ApiException.badRequest("El ajuste debe ser distinto de cero");
         }
 
-        Item item = itemRepository.findById(itemId)
+        Item item = itemRepository.findById(Objects.requireNonNull(itemId, "El identificador del artículo es obligatorio"))
                 .orElseThrow(() -> ApiException.notFound("Art\u00edculo no encontrado"));
 
         BigDecimal resultado = item.getStock().add(delta);
@@ -51,7 +52,7 @@ public class StockService {
 
         StockMovement movement = new StockMovement();
         movement.setItem(item);
-        movement.setUser(userRepository.findById(operatorId)
+        movement.setUser(userRepository.findById(Objects.requireNonNull(operatorId, "El identificador del operador es obligatorio"))
                 .orElseThrow(() -> ApiException.notFound("Usuario no encontrado")));
         movement.setMachine(machineService.registerIfAbsent(machineId));
         movement.setMovementType(MovementType.AJUSTE);

@@ -2,7 +2,6 @@ package com.sgm.desktop.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -450,8 +449,9 @@ public class LoginController {
      */
     private String extraerMensajeServidor(RestClientResponseException excepcion) {
         try {
-            String cuerpo = excepcion.getResponseBodyAsString(StandardCharsets.UTF_8);
-            if (cuerpo != null && !cuerpo.isBlank()) {
+            // La sobrecarga sin argumento decodifica el cuerpo como UTF-8 (comportamiento identico).
+            String cuerpo = excepcion.getResponseBodyAsString();
+            if (!cuerpo.isBlank()) {
                 JsonNode nodoMensaje = MAPPER.readTree(cuerpo).path("message");
                 if (!nodoMensaje.isMissingNode() && !nodoMensaje.isNull() && !nodoMensaje.asText().isBlank()) {
                     return nodoMensaje.asText();

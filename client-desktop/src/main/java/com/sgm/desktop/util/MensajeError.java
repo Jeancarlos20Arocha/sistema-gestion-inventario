@@ -1,7 +1,6 @@
 package com.sgm.desktop.util;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
@@ -55,8 +54,9 @@ public final class MensajeError {
      */
     private static String extraerMensajeServidor(RestClientResponseException excepcion) {
         try {
-            String cuerpo = excepcion.getResponseBodyAsString(StandardCharsets.UTF_8);
-            if (cuerpo != null && !cuerpo.isBlank()) {
+            // La sobrecarga sin argumento decodifica el cuerpo como UTF-8 (comportamiento identico).
+            String cuerpo = excepcion.getResponseBodyAsString();
+            if (!cuerpo.isBlank()) {
                 JsonNode nodoMensaje = MAPPER.readTree(cuerpo).path("message");
                 if (nodoMensaje.isTextual() && !nodoMensaje.asText().isBlank()) {
                     return nodoMensaje.asText();

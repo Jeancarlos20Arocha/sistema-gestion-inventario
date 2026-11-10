@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class PosService {
@@ -44,7 +45,7 @@ public class PosService {
 
     @Transactional
     public SaleDTO process(SaleRequest request, Long operatorId) {
-        User user = userRepository.findById(operatorId)
+        User user = userRepository.findById(Objects.requireNonNull(operatorId, "El identificador del cajero es obligatorio"))
                 .orElseThrow(() -> ApiException.notFound("Usuario no encontrado"));
 
         MachineTerminal terminal = machineService.registerIfAbsent(request.machineId());
@@ -58,8 +59,9 @@ public class PosService {
 
         BigDecimal total = BigDecimal.ZERO;
         for (Map.Entry<Long, BigDecimal> entry : cantidades.entrySet()) {
-            Item item = itemRepository.findById(entry.getKey())
-                    .orElseThrow(() -> ApiException.notFound("Art\u00edculo no encontrado (id " + entry.getKey() + ")"));
+            Long itemPedido = Objects.requireNonNull(entry.getKey(), "El identificador del artículo es obligatorio");
+            Item item = itemRepository.findById(itemPedido)
+                    .orElseThrow(() -> ApiException.notFound("Art\u00edculo no encontrado (id " + itemPedido + ")"));
             if (!item.isActive()) {
                 throw ApiException.conflict("El art\u00edculo \u00ab" + item.getName() + "\u00bb est\u00e1 deshabilitado");
             }

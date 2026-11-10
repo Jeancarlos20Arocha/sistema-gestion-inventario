@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService {
@@ -112,7 +113,7 @@ public class UserService {
     }
 
     private User buscar(Long userId) {
-        return userRepository.findById(userId)
+        return userRepository.findById(Objects.requireNonNull(userId, "El identificador del usuario es obligatorio"))
                 .orElseThrow(() -> ApiException.notFound("Usuario no encontrado"));
     }
 

@@ -27,6 +27,9 @@ Thumbs.db
 *.log
 logs/
 
+# Classpaths temporales de analisis
+cp-*.txt
+
 # Secrets locales (nunca subir)
 .env
 *.pem

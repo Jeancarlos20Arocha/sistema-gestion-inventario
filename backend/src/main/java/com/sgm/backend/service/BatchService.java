@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BatchService {
@@ -40,12 +41,13 @@ public class BatchService {
 
     @Transactional
     public BatchDTO register(BatchDTO.CreateBatchRequest request, String machineId, Long operatorId) {
-        Item item = itemRepository.findById(request.itemId())
+        Long itemId = Objects.requireNonNull(request.itemId(), "El identificador del artículo del lote es obligatorio");
+        Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> ApiException.notFound("Art\u00edculo no encontrado"));
         if (!item.isActive()) {
             throw ApiException.conflict("El art\u00edculo est\u00e1 deshabilitado");
         }
-        if (batchRepository.existsByItemIdAndBatchCode(request.itemId(), request.batchCode().trim())) {
+        if (batchRepository.existsByItemIdAndBatchCode(itemId, request.batchCode().trim())) {
             throw ApiException.conflict("El lote proporcionado ya existe para este art\u00edculo");
         }
 
@@ -62,7 +64,7 @@ public class BatchService {
         itemRepository.save(item);
 
         MachineTerminal terminal = machineService.registerIfAbsent(machineId);
-        User user = userRepository.findById(operatorId)
+        User user = userRepository.findById(Objects.requireNonNull(operatorId, "El identificador del operador es obligatorio"))
                 .orElseThrow(() -> ApiException.notFound("Usuario no encontrado"));
 
         StockMovement movement = new StockMovement();

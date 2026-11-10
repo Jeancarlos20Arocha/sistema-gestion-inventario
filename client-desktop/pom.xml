@@ -50,6 +50,15 @@
             <artifactId>spring-web</artifactId>
         </dependency>
 
+        <!-- Necesaria solo al compilar: las anotaciones @NonNull/@Nullable de Spring
+             referencian la meta-anotacion JSR-305 (javax.annotation.meta.When). -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>

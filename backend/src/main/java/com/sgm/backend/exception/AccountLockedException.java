@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 @Getter
 public class AccountLockedException extends ApiException {
 
+    private static final long serialVersionUID = 1L;
+
     private final int attempts;
     private final LocalDateTime unlockAt;
 

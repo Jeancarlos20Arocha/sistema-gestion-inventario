@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 @Service
 public class RecoveryService {
@@ -123,7 +124,7 @@ public class RecoveryService {
      */
     @Transactional
     public void configureQuestions(Long userId, RegisterSecurityQuestionsRequest request) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(Objects.requireNonNull(userId, "El identificador del usuario es obligatorio"))
                 .orElseThrow(() -> ApiException.notFound("Usuario no encontrado"));
 
         if (request == null || !request.allAnswered()) {

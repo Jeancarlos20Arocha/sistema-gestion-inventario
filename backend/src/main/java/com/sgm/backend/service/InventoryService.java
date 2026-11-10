@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class InventoryService {
@@ -39,11 +40,12 @@ public class InventoryService {
 
     @Transactional
     public CategoryDTO updateCategory(CategoryDTO.UpdateCategoryRequest request) {
-        Category category = categoryRepository.findById(request.id())
+        Long categoriaId = Objects.requireNonNull(request.id(), "El identificador de la categoría es obligatorio");
+        Category category = categoryRepository.findById(categoriaId)
                 .orElseThrow(() -> ApiException.notFound(CATEGORIA_NO_EXISTE));
 
         categoryRepository.findByNameIgnoreCase(request.name().trim()).ifPresent(existente -> {
-            if (!existente.getId().equals(request.id())) {
+            if (!existente.getId().equals(categoriaId)) {
                 throw ApiException.conflict("Ya existe otra categor\u00eda con ese nombre");
             }
         });
@@ -68,7 +70,8 @@ public class InventoryService {
         if (itemRepository.existsByBarcode(request.barcode().trim())) {
             throw ApiException.conflict("El c\u00f3digo de barras ya est\u00e1 registrado");
         }
-        Category category = categoryRepository.findById(request.categoryId())
+        Category category = categoryRepository.findById(
+                        Objects.requireNonNull(request.categoryId(), "La categoría del artículo es obligatoria"))
                 .orElseThrow(() -> ApiException.notFound(CATEGORIA_NO_EXISTE));
         if (!category.isActive()) {
             throw ApiException.conflict("La categor\u00eda est\u00e1 deshabilitada");
@@ -88,14 +91,16 @@ public class InventoryService {
 
     @Transactional
     public ItemDTO updateItem(ItemDTO.UpdateItemRequest request) {
-        Item item = itemRepository.findById(request.id())
+        Item item = itemRepository.findById(
+                        Objects.requireNonNull(request.id(), "El identificador del artículo es obligatorio"))
                 .orElseThrow(() -> ApiException.notFound(ARTICULO_NO_EXISTE));
 
         if (itemRepository.existsByBarcodeAndIdNot(request.barcode().trim(), item.getId())) {
             throw ApiException.conflict("El c\u00f3digo de barras ya est\u00e1 registrado en otro art\u00edculo");
         }
 
-        Category category = categoryRepository.findById(request.categoryId())
+        Category category = categoryRepository.findById(
+                        Objects.requireNonNull(request.categoryId(), "La categoría del artículo es obligatoria"))
                 .orElseThrow(() -> ApiException.notFound(CATEGORIA_NO_EXISTE));
 
         item.setBarcode(request.barcode().trim());

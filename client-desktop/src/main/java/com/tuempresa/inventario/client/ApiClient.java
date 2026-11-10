@@ -1,10 +1,13 @@
 package com.tuempresa.inventario.client;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.web.client.RestClient;
 
 /**
@@ -35,7 +38,7 @@ public class ApiClient {
     /**
      * Crea el cliente a partir de una URL base.
      *
-     * @param baseUrl URL raíz del backend (por ejemplo {@code http://localhost:8080})
+     * @param baseUrl URL raíz del backend (por ejemplo {@code http://localhost:8080}); no puede ser {@code null}
      */
     public ApiClient(String baseUrl) {
         this(baseUrl, null);
@@ -44,12 +47,13 @@ public class ApiClient {
     /**
      * Crea el cliente a partir de una URL base y un token de autenticación opcional.
      *
-     * @param baseUrl URL raíz del backend
+     * @param baseUrl URL raíz del backend; no puede ser {@code null}
      * @param token   token que se enviará en la cabecera {@code Authorization} (puede ser {@code null})
      */
-    public ApiClient(String baseUrl, String token) {
+    public ApiClient(String baseUrl, @Nullable String token) {
+        String url = Objects.requireNonNull(baseUrl, "La URL base (baseUrl) es obligatoria");
         RestClient.Builder builder = RestClient.builder()
-                .baseUrl(baseUrl)
+                .baseUrl(url)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 
@@ -63,10 +67,10 @@ public class ApiClient {
     /**
      * Crea el cliente a partir de un {@link RestClient} ya configurado.
      *
-     * @param restClient instancia de RestClient a reutilizar
+     * @param restClient instancia de RestClient a reutilizar; no puede ser {@code null}
      */
     public ApiClient(RestClient restClient) {
-        this.restClient = restClient;
+        this.restClient = Objects.requireNonNull(restClient, "El RestClient es obligatorio");
     }
 
     /**
@@ -85,7 +89,7 @@ public class ApiClient {
     /**
      * Realiza una petición GET y deserializa la respuesta al tipo indicado.
      */
-    public <T> T get(String path, Class<T> responseType) {
+    public <T> T get(@NonNull String path, @NonNull Class<T> responseType) {
         return restClient.get()
                 .uri(path)
                 .retrieve()
@@ -95,9 +99,10 @@ public class ApiClient {
     /**
      * Realiza una petición GET con variables de plantilla de URI (por ejemplo {@code /api/admin/items/{id}}).
      */
-    public <T> T get(String path, Class<T> responseType, Map<String, ?> uriVariables) {
+    public <T> T get(@NonNull String path, @NonNull Class<T> responseType, Map<String, ?> uriVariables) {
+        Map<String, ?> variables = Objects.requireNonNull(uriVariables, "Las variables de URI son obligatorias");
         return restClient.get()
-                .uri(path, uriVariables)
+                .uri(path, variables)
                 .retrieve()
                 .body(responseType);
     }
@@ -105,7 +110,7 @@ public class ApiClient {
     /**
      * Realiza una petición GET para respuestas genéricas (listas, envoltorios, etc.).
      */
-    public <T> T get(String path, ParameterizedTypeReference<T> responseType) {
+    public <T> T get(@NonNull String path, @NonNull ParameterizedTypeReference<T> responseType) {
         return restClient.get()
                 .uri(path)
                 .retrieve()
@@ -115,9 +120,10 @@ public class ApiClient {
     /**
      * Realiza una petición GET genérica con variables de plantilla de URI.
      */
-    public <T> T get(String path, ParameterizedTypeReference<T> responseType, Map<String, ?> uriVariables) {
+    public <T> T get(@NonNull String path, @NonNull ParameterizedTypeReference<T> responseType, Map<String, ?> uriVariables) {
+        Map<String, ?> variables = Objects.requireNonNull(uriVariables, "Las variables de URI son obligatorias");
         return restClient.get()
-                .uri(path, uriVariables)
+                .uri(path, variables)
                 .retrieve()
                 .body(responseType);
     }
@@ -129,7 +135,7 @@ public class ApiClient {
     /**
      * Realiza una petición POST enviando {@code body} como JSON.
      */
-    public <T> T post(String path, Object body, Class<T> responseType) {
+    public <T> T post(@NonNull String path, @NonNull Object body, @NonNull Class<T> responseType) {
         return restClient.post()
                 .uri(path)
                 .body(body)
@@ -140,7 +146,7 @@ public class ApiClient {
     /**
      * Realiza una petición POST genérica enviando {@code body} como JSON.
      */
-    public <T> T post(String path, Object body, ParameterizedTypeReference<T> responseType) {
+    public <T> T post(@NonNull String path, @NonNull Object body, @NonNull ParameterizedTypeReference<T> responseType) {
         return restClient.post()
                 .uri(path)
                 .body(body)
@@ -151,7 +157,7 @@ public class ApiClient {
     /**
      * Realiza una petición POST sin esperar cuerpo de respuesta (por ejemplo, un 201 Created vacío).
      */
-    public void post(String path, Object body) {
+    public void post(@NonNull String path, @NonNull Object body) {
         restClient.post()
                 .uri(path)
                 .body(body)
@@ -166,7 +172,7 @@ public class ApiClient {
     /**
      * Realiza una petición PUT enviando {@code body} como JSON.
      */
-    public <T> T put(String path, Object body, Class<T> responseType) {
+    public <T> T put(@NonNull String path, @NonNull Object body, @NonNull Class<T> responseType) {
         return restClient.put()
                 .uri(path)
                 .body(body)
@@ -177,7 +183,7 @@ public class ApiClient {
     /**
      * Realiza una petición PUT genérica enviando {@code body} como JSON.
      */
-    public <T> T put(String path, Object body, ParameterizedTypeReference<T> responseType) {
+    public <T> T put(@NonNull String path, @NonNull Object body, @NonNull ParameterizedTypeReference<T> responseType) {
         return restClient.put()
                 .uri(path)
                 .body(body)
@@ -188,7 +194,7 @@ public class ApiClient {
     /**
      * Realiza una petición PUT sin esperar cuerpo de respuesta.
      */
-    public void put(String path, Object body) {
+    public void put(@NonNull String path, @NonNull Object body) {
         restClient.put()
                 .uri(path)
                 .body(body)
@@ -203,7 +209,7 @@ public class ApiClient {
     /**
      * Realiza una petición DELETE sin esperar cuerpo de respuesta.
      */
-    public void delete(String path) {
+    public void delete(@NonNull String path) {
         restClient.delete()
                 .uri(path)
                 .retrieve()
@@ -213,7 +219,7 @@ public class ApiClient {
     /**
      * Realiza una petición DELETE y deserializa la respuesta al tipo indicado.
      */
-    public <T> T delete(String path, Class<T> responseType) {
+    public <T> T delete(@NonNull String path, @NonNull Class<T> responseType) {
         return restClient.delete()
                 .uri(path)
                 .retrieve()
@@ -223,7 +229,7 @@ public class ApiClient {
     /**
      * Realiza una petición DELETE genérica y deserializa la respuesta.
      */
-    public <T> T delete(String path, ParameterizedTypeReference<T> responseType) {
+    public <T> T delete(@NonNull String path, @NonNull ParameterizedTypeReference<T> responseType) {
         return restClient.delete()
                 .uri(path)
                 .retrieve()
@@ -277,12 +283,14 @@ public class ApiClient {
          * Construye la instancia de {@link ApiClient}.
          *
          * @return el cliente configurado
+         * @throws IllegalStateException si no se definió una URL base válida
          */
         public ApiClient build() {
-            if (baseUrl == null || baseUrl.isBlank()) {
+            String url = baseUrl;
+            if (url == null || url.isBlank()) {
                 throw new IllegalStateException("La URL base (baseUrl) es obligatoria");
             }
-            return new ApiClient(baseUrl, token);
+            return new ApiClient(url, token);
         }
     }
 }

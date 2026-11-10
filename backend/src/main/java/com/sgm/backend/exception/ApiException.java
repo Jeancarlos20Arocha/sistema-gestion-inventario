@@ -1,17 +1,20 @@
 package com.sgm.backend.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 
 public class ApiException extends RuntimeException {
 
-    private final HttpStatus status;
+    private static final long serialVersionUID = 1L;
 
-    public ApiException(HttpStatus status, String message) {
+    private final @NonNull HttpStatus status;
+
+    public ApiException(@NonNull HttpStatus status, String message) {
         super(message);
         this.status = status;
     }
 
-    public HttpStatus getStatus() {
+    public @NonNull HttpStatus getStatus() {
         return status;
     }
 
