@@ -49,32 +49,12 @@
                         <Label text="Seleccione el módulo que desea administrar" styleClass="section-subtitle"/>
                         <TilePane alignment="TOP_CENTER" hgap="18.0" vgap="18.0" prefColumns="2">
                             <children>
-                                <Button onAction="#onGestionProductos" styleClass="card" prefWidth="320.0" prefHeight="120.0">
+                                <Button fx:id="administracionButton" onAction="#onDashboardAdministracion" styleClass="card" prefWidth="320.0" prefHeight="120.0">
                                     <graphic>
                                         <VBox alignment="CENTER_LEFT" spacing="6.0">
                                             <children>
-                                                <Label text="Productos" styleClass="card-title"/>
-                                                <Label text="Administrar el catálogo de productos del inventario" styleClass="card-desc" wrapText="true"/>
-                                            </children>
-                                        </VBox>
-                                    </graphic>
-                                </Button>
-                                <Button onAction="#onGestionStock" styleClass="card" prefWidth="320.0" prefHeight="120.0">
-                                    <graphic>
-                                        <VBox alignment="CENTER_LEFT" spacing="6.0">
-                                            <children>
-                                                <Label text="Stock" styleClass="card-title"/>
-                                                <Label text="Consultar existencias, entradas y salidas de mercancía" styleClass="card-desc" wrapText="true"/>
-                                            </children>
-                                        </VBox>
-                                    </graphic>
-                                </Button>
-                                <Button onAction="#onGestionCategorias" styleClass="card" prefWidth="320.0" prefHeight="120.0">
-                                    <graphic>
-                                        <VBox alignment="CENTER_LEFT" spacing="6.0">
-                                            <children>
-                                                <Label text="Categorías" styleClass="card-title"/>
-                                                <Label text="Organizar los productos por categorías" styleClass="card-desc" wrapText="true"/>
+                                                <Label text="Administración" styleClass="card-title"/>
+                                                <Label text="Gestionar inventario, lotes, movimientos y usuarios" styleClass="card-desc" wrapText="true"/>
                                             </children>
                                         </VBox>
                                     </graphic>

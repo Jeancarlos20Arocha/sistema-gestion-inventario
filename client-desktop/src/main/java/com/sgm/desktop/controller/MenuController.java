@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -23,8 +24,9 @@ import javafx.stage.Stage;
  * <p>
  * Recupera la sesión activa desde {@link SessionManager} para dar la bienvenida
  * al usuario y exponer sus datos básicos. Además, centraliza la navegación hacia
- * los módulos del sistema de inventario (productos, stock, categorías y punto de
- * venta) y el cierre de sesión.
+ * los módulos existentes del sistema (panel de administración y punto de venta)
+ * y el cierre de sesión. El acceso al panel de administración solo se ofrece a
+ * usuarios con rol {@code ROLE_ADMIN}, en coherencia con el backend.
  * <p>
  * Nota: al igual que el resto del módulo {@code client-desktop}, no se usan
  * anotaciones de Spring porque la aplicación es JavaFX pura; se emplean las
@@ -35,9 +37,7 @@ public class MenuController {
     private static final Logger LOG = Logger.getLogger(MenuController.class.getName());
 
     private static final String RECURSO_LOGIN = "/fxml/login.fxml";
-    private static final String RECURSO_PRODUCTOS = "/fxml/productos.fxml";
-    private static final String RECURSO_STOCK = "/fxml/stock.fxml";
-    private static final String RECURSO_CATEGORIAS = "/fxml/categorias.fxml";
+    private static final String RECURSO_ADMIN_DASHBOARD = "/fxml/admin-dashboard.fxml";
     private static final String RECURSO_PUNTO_DE_VENTA = "/fxml/punto-venta.fxml";
 
     @FXML
@@ -50,11 +50,15 @@ public class MenuController {
     private Label estadoLabel;
 
     @FXML
+    private Button administracionButton;
+
+    @FXML
     private StackPane contenidoPane;
 
     /**
      * Inicializa la vista tras cargar el FXML. Verifica que exista una sesión
-     * activa y pinta los datos del usuario autenticado.
+     * activa, pinta los datos del usuario autenticado y muestra el acceso al
+     * panel de administración únicamente para usuarios con rol de administrador.
      */
     @FXML
     private void initialize() {
@@ -74,6 +78,10 @@ public class MenuController {
         usuarioLabel.setText("Usuario: " + sesion.getUsername()
                 + "  |  Rol: " + formatearRol(sesion.getRole()));
 
+        boolean esAdministrador = sesion.getRole() == Role.ROLE_ADMIN;
+        administracionButton.setVisible(esAdministrador);
+        administracionButton.setManaged(esAdministrador);
+
         actualizarEstado("Sesión iniciada. Seleccione un módulo para comenzar.");
         LOG.info(() -> "Menú principal cargado para el usuario: " + sesion.getUsername());
     }
@@ -83,27 +91,11 @@ public class MenuController {
     // ------------------------------------------------------------------
 
     /**
-     * Abre el módulo de gestión de productos.
+     * Abre el panel de administración (inventario, lotes, movimientos y usuarios).
      */
     @FXML
-    private void onGestionProductos() {
-        navegarA(RECURSO_PRODUCTOS, "Gestión de Productos");
-    }
-
-    /**
-     * Abre el módulo de control de stock.
-     */
-    @FXML
-    private void onGestionStock() {
-        navegarA(RECURSO_STOCK, "Control de Stock");
-    }
-
-    /**
-     * Abre el módulo de gestión de categorías.
-     */
-    @FXML
-    private void onGestionCategorias() {
-        navegarA(RECURSO_CATEGORIAS, "Gestión de Categorías");
+    private void onDashboardAdministracion() {
+        navegarA(RECURSO_ADMIN_DASHBOARD, "Administración");
     }
 
     /**
@@ -146,11 +138,10 @@ public class MenuController {
     // ------------------------------------------------------------------
 
     /**
-     * Carga una vista en el panel central. Si el recurso todavía no existe,
-     * informa al usuario sin interrumpir la aplicación, dejando preparada la
-     * estructura para cuando el módulo se implemente.
+     * Carga una vista en el panel central. Si el recurso no existe, informa al
+     * usuario sin interrumpir la aplicación.
      *
-     * @param recurso ruta del FXML del módulo (por ejemplo {@code /fxml/productos.fxml})
+     * @param recurso ruta del FXML del módulo (por ejemplo {@code /fxml/punto-venta.fxml})
      * @param titulo  título descriptivo del módulo
      */
     private void navegarA(String recurso, String titulo) {
