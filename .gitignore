@@ -5,6 +5,7 @@ target/
 
 # Maven Wrapper (mvnw): se versiona para builds reproducibles
 .mvn/*
+!.mvn/jvm.config
 !.mvn/wrapper/
 .mvn/wrapper/*
 !.mvn/wrapper/maven-wrapper.properties
