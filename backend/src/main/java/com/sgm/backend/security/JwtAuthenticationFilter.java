@@ -63,7 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private Long asLong(Object value) {
         if (value instanceof Number number) {
-            return number.longValue();
+            return Long.valueOf(number.longValue());
         }
         return value != null ? Long.valueOf(value.toString()) : null;
     }

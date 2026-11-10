@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccountLockedException.class)
     public ResponseEntity<ApiResponse> handleLocked(AccountLockedException ex) {
         Map<String, Object> detail = new LinkedHashMap<>();
-        detail.put("intentosFallidos", ex.getAttempts());
+        detail.put("intentosFallidos", Integer.valueOf(ex.getAttempts()));
         detail.put("desbloqueoEn", ex.getUnlockAt());
         return ResponseEntity.status(HttpStatus.LOCKED)
                 .body(new ApiResponse(false, 423, ex.getMessage(), java.time.LocalDateTime.now(), detail));

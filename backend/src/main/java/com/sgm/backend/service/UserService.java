@@ -73,10 +73,11 @@ public class UserService {
     @Transactional
     public UserDTO toggleEnabled(Long userId, Boolean enabled) {
         User user = buscar(userId);
-        if (user.getRole() == Role.ROLE_ADMIN && !enabled && esUltimoAdmin()) {
+        boolean deshabilitar = !Boolean.TRUE.equals(enabled);
+        if (user.getRole() == Role.ROLE_ADMIN && deshabilitar && esUltimoAdmin()) {
             throw ApiException.conflict("No puede deshabilitar al \u00faltimo administrador activo");
         }
-        user.setEnabled(enabled);
+        user.setEnabled(!deshabilitar);
         return toDto(userRepository.save(user));
     }
 

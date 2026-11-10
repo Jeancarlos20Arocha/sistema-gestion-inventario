@@ -52,7 +52,7 @@ public class InventoryService {
 
         category.setName(request.name().trim());
         category.setDescription(request.description());
-        category.setActive(request.active());
+        category.setActive(Boolean.TRUE.equals(request.active()));
         return toDto(categoryRepository.save(category));
     }
 
@@ -111,7 +111,7 @@ public class InventoryService {
         item.setCost(request.cost());
         item.setPrice(request.price());
         item.setMinStock(request.minStock());
-        item.setActive(request.active());
+        item.setActive(Boolean.TRUE.equals(request.active()));
         return toDto(itemRepository.save(item));
     }
 
