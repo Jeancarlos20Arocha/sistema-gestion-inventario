@@ -34,6 +34,9 @@
         <jjwt.version>0.12.6</jjwt.version>
         <javafx.version>21.0.4</javafx.version>
         <lombok.version>1.18.48</lombok.version>
+        <!-- Byte Buddy 1.14 (gestionado por Spring Boot 3.3.5) no soporta JDK 25;
+             Mockito lo necesita para crear mocks en las pruebas unitarias -->
+        <byte-buddy.version>1.18.17</byte-buddy.version>
 
         <javafx.platform>win</javafx.platform>
         <os.detected.name>windows</os.detected.name>
@@ -61,6 +64,16 @@
                 <groupId>com.sgm</groupId>
                 <artifactId>sgm-shared</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>${byte-buddy.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
